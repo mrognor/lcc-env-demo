@@ -1,0 +1,40 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: lcc env
+      uses: mrognor/lcc-env-action@0.1.0
+
+    # Amd 64 section
+    - name: Build amd64 code
+      run: make
+
+    - name: Check file info
+      run: file main
+
+    - name: Run amd64 code
+      run: ./main && mv main main_amd64
+
+    # E2k section
+    - name: Build e2k code
+      run: |
+        export CC=lcc
+        export CXX=l++
+        make
+
+    - name: Check file info
+      run: file main
+
+    - name: Run e2k code
+      run: e2k main && mv main main_e2k
