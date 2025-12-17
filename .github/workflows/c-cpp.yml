@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: lcc env
-      uses: mrognor/lcc-env-action@0.1.1
+      uses: mrognor/lcc-env-action@668e71a3d90fad16d96d11514ee663e3b92665c8
 
     # Amd 64 section
     - name: Build amd64 code
